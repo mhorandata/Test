@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="Spelling.css">
+</head>
+<body>
+  <div id="levelSection">
+    <h2 id="levelDisplay" class="level-student">Level: Student</h2>
+  </div>
+  <div id="questionSection">
+    <h2>Enter Questions and Answers:</h2>
+    <input type="text" id="questionInput" placeholder="Question">
+    <input type="text" id="answerInput" placeholder="Answer">
+    <button onclick="storeQuestion()">Store Question</button>
+  </div>
+  <div id="messageSection" style="display: none;">
+    <p id="questionDisplay"></p>
+    <p>Please Type Your Answer Here:</p>
+    <input type="text" id="userAnswerInput">
+    <button onclick="giveAnswer()">Give Answer</button>
+  </div>
+  <div id="scoreSection">
+    <p id="scoreDisplay">Score: 0</p>
+  </div>
+
+  <script src="Spelling.js"></script>
+</body>
+</html>
