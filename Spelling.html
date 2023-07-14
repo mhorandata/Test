@@ -2,25 +2,141 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="Spelling.css">
+  <style>
+    .message {
+      display: none;
+      color: green;
+      margin-top: 10px;
+    }
+    .incorrect {
+      color: red;
+    }
+    table {
+      margin-top: 20px;
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
 </head>
 <body>
   <div id="levelSection">
-    <h2 id="levelDisplay" class="level-student">Level: Student</h2>
+    <h2 id="levelDisplay" class="level-student">Level:</h2>
   </div>
   <div id="questionSection">
     <h2>Enter Questions and Answers:</h2>
-    <input type="text" id="questionInput" placeholder="Question">
-    <input type="text" id="answerInput" placeholder="Answer">
-    <button onclick="storeQuestion()">Store Question</button>
+    <div id="questionInputs">
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <div class="question-pair">
+        <input type="text" class="question-input" placeholder="Enter Question">
+        <input type="text" class="answer-input" placeholder="Enter Answer">
+      </div>
+      <!-- Repeat the question-pair div for a total of 20 times -->
+    </div>
+    <button onclick="storeQuestions()">Store Questions</button>
   </div>
   <div id="messageSection" style="display: none;">
     <p id="questionDisplay"></p>
     <p>Please Type Your Answer Here:</p>
     <input type="text" id="userAnswerInput">
     <button onclick="giveAnswer()">Give Answer</button>
+    <div class="message" id="answerMessage"></div>
   </div>
-  <div id="scoreSection">
+  <div id="scoreSection" style="display: none;">
     <p id="scoreDisplay">Score: 0</p>
+    <p id="scorePercentage"></p>
+    <p id="finalScoreDisplay"></p>
+    <table id="questionTable">
+      <tr>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>Result</th>
+      </tr>
+    </table>
+    <button onclick="restartQuiz()" id="restartButton" style="display: none;">Restart</button>
   </div>
 
   <script src="Spelling.js"></script>
