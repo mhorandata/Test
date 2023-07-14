@@ -109,11 +109,13 @@ function updateLevel() {
   if (scorePercentage < 65) {
     document.getElementById('levelDisplay').textContent = 'Level: Novice';
   } else if (scorePercentage >= 65 && scorePercentage <= 75) {
-    document.getElementById('levelDisplay').textContent = 'Level: Student';
+    document.getElementById('levelDisplay').textContent = 'Level: Advanced Beginner';
   } else if (scorePercentage > 75 && scorePercentage <= 85) {
-    document.getElementById('levelDisplay').textContent = 'Level: Teacher';
+    document.getElementById('levelDisplay').textContent = 'Level: Competent';
+  } else if (scorePercentage > 85 && scorePercentage <= 95) {
+    document.getElementById('levelDisplay').textContent = 'Level: Proficient';
   } else {
-    document.getElementById('levelDisplay').textContent = 'Level: Master';
+    document.getElementById('levelDisplay').textContent = 'Level: Expert';
   }
 }
 
