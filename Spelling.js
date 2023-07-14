@@ -103,7 +103,9 @@ function addRowToQuestionTable(questionIndex, result) {
 
 // Function to update the level display based on the score percentage
 function updateLevel() {
-  var scorePercentage = (score / totalQuestionsAnswered) * 100;
+  var scorePercentage = ((score / totalQuestionsAnswered) * 100).toFixed(2);
+  document.getElementById('scorePercentage').textContent = 'Score: ' + scorePercentage + '%';
+  document.getElementById('scorePercentage2').textContent = scorePercentage + '%';
 
   if (scorePercentage < 65) {
     document.getElementById('levelDisplay').textContent = 'Level: Novice';
@@ -127,6 +129,7 @@ function restartQuiz() {
 
   // Reset variables
   currentQuestionIndex = 0;
+  score = 0;
   totalQuestionsAnswered = 0;
 
   // Reset input fields
@@ -143,6 +146,10 @@ function restartQuiz() {
   while (table.rows.length > 1) {
     table.deleteRow(-1);
   }
+
+  // Reset score percentage
+  document.getElementById('scorePercentage').textContent = 'Score: 0%';
+  document.getElementById('scorePercentage2').textContent = '0%';
 
   currentState = 'storeQuestions';
 }
