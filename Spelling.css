@@ -1,130 +1,14 @@
 /* Spelling.css */
 
-/* Optional global styles */
-body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    padding: 20px;
-    background-color: #f5f5f5;
-  }
-  
-  /* Input field styles */
-  input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    background-color: #fff;
-  }
-  
-  /* Button styles */
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #C6E6C3;
-    color: #333;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #B2DAB0;
-  }
-  
-  button:active {
-    background-color: #9ED09C;
-  }
-  
-  button:focus {
-    outline: none;
-  }
-  
-  /* Message box styles */
-  #messageSection {
-    display: none;
-    margin-top: 20px;
-  }
-  
-  #questionDisplay {
-    font-weight: bold;
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  /* Scoreboard styles */
-  #scoreSection {
-    margin-top: 20px;
-  }
-  
-  #scoreDisplay {
-    font-weight: bold;
-    font-size: 18px;
-    text-align: center;
-    color: #333;
-  }
-  
-  /* Quiz show background styles */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(to bottom right, #C6E6C3, #DFF3D9);
-    opacity: 0.2;
-    pointer-events: none;
-  }
-  
-  /* Alert styles */
-  .alert {
-    padding: 10px;
-    font-size: 24px;
-    text-align: center;
-    color: #fff;
-    margin-bottom: 20px;
-  }
-  
-  .alert-success {
-    background-color: #64a845;
-  }
-  
-  .alert-error {
-    background-color: #d23f31;
-  }
-  
-  .alert-level-up {
-    background-color: #007bff;
-    font-size: 48px;
-    text-transform: uppercase;
-    padding: 20px;
-    color: #fff;
-  }
-  
-  /* Level display styles */
-  #levelSection {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  #levelDisplay {
-    display: none;
-    color: #fff;
-  }
-  
-  .level-student {
-    background-color: #B2DFFC;
-    color: #007bff;
-  }
-  
-  .level-advanced-student {
-    background-color: #82CA9D;
-    color: #28a745;
-  }
-  
+/* Add your existing CSS styles here */
+
+/* Additional styles for the message display */
+.message {
+  display: none;
+  color: green;
+  margin-top: 10px;
+}
+
+.incorrect {
+  color: red;
+}
