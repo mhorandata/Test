@@ -1,113 +1,159 @@
-// Spelling.js
+// Store the question-answer pairs
+var questionPairs = [];
 
-let storedQuestion = '';
-let storedAnswer = '';
-let score = 0;
-let levelDisplayed = false;
+// Track the current question index
+var currentQuestionIndex = 0;
 
-function storeQuestion() {
-  const questionInput = document.getElementById('questionInput');
-  const answerInput = document.getElementById('answerInput');
+// Store the user's score
+var score = 0;
 
-  storedQuestion = questionInput.value.trim();
-  storedAnswer = answerInput.value.trim();
+// Store the total number of questions answered
+var totalQuestionsAnswered = 0;
 
-  if (storedQuestion !== '' && storedAnswer !== '') {
+// Variable to track the current state
+var currentState = 'storeQuestions';
+
+// Function to store the questions and answers
+function storeQuestions() {
+  var questionInputs = document.getElementsByClassName('question-input');
+  var answerInputs = document.getElementsByClassName('answer-input');
+
+  questionPairs = [];
+
+  for (var i = 0; i < questionInputs.length; i++) {
+    var question = questionInputs[i].value.trim();
+    var answer = answerInputs[i].value.trim();
+
+    if (question !== '' && answer !== '') {
+      questionPairs.push({ question: question, answer: answer });
+    }
+  }
+
+  if (questionPairs.length > 0) {
     document.getElementById('questionSection').style.display = 'none';
     document.getElementById('messageSection').style.display = 'block';
-
-    document.getElementById('questionDisplay').textContent = storedQuestion;
-    clearInputValues([questionInput, answerInput]);
-  } else {
-    alert('Please enter both a question and an answer.');
+    showRandomQuestion();
+    currentState = 'giveAnswer';
   }
 }
 
+// Function to show random question
+function showRandomQuestion() {
+  if (questionPairs.length === 0) return;
+
+  currentQuestionIndex = Math.floor(Math.random() * questionPairs.length);
+  var currentQuestion = questionPairs[currentQuestionIndex].question;
+
+  document.getElementById('questionDisplay').textContent = currentQuestion;
+}
+
+// Function to check user's answer
 function giveAnswer() {
-  const userAnswerInput = document.getElementById('userAnswerInput');
-  const userAnswer = userAnswerInput.value.trim();
+  var userAnswer = document.getElementById('userAnswerInput').value.trim();
+  var currentAnswer = questionPairs[currentQuestionIndex].answer;
 
-  if (userAnswer === storedAnswer || userAnswer === 'Plus5') {
-    if (userAnswer === 'Plus5') {
-      score += 5;
-    } else {
-      score++;
-    }
-
-    if (score === 5) {
-      showLevel('Student');
-      showAlert('You Leveled Up!', 'level-up');
-    } else if (score === 10) {
-      showLevel('Advanced Student');
-      showAlert('You Leveled Up!', 'level-up');
-    } else {
-      showAlert('You got it right!', 'success');
-    }
+  if (userAnswer.toLowerCase() === currentAnswer.toLowerCase()) {
+    score++;
+    document.getElementById('scoreDisplay').textContent = 'You got it right!';
+    addRowToQuestionTable(currentQuestionIndex, 'Correct');
   } else {
     score = 0;
-    hideLevel();
-    showAlert('You got it wrong. Try again!', 'error');
+    document.getElementById('scoreDisplay').textContent = 'You got it wrong. Try again!';
+    addRowToQuestionTable(currentQuestionIndex, 'Incorrect');
   }
 
-  updateScore();
-  clearInputValues([userAnswerInput]);
+  totalQuestionsAnswered++;
+  document.getElementById('scorePercentage').textContent =
+    'Score: ' + ((score / totalQuestionsAnswered) * 100).toFixed(2) + '%';
+
+  updateLevel();
+
+  // Remove the answered question from the array
+  questionPairs.splice(currentQuestionIndex, 1);
+
+  if (questionPairs.length === 0) {
+    document.getElementById('messageSection').style.display = 'none';
+    document.getElementById('scoreSection').style.display = 'block';
+    document.getElementById('finalScoreDisplay').textContent = 'Final Score: ' + score;
+    document.getElementById('restartButton').style.display = 'block';
+    currentState = 'storeQuestions';
+  } else {
+    showRandomQuestion();
+  }
+
+  document.getElementById('userAnswerInput').value = '';
 }
 
-function restart() {
-  document.getElementById('messageSection').style.display = 'none';
+// Function to add a row to the question table
+function addRowToQuestionTable(questionIndex, result) {
+  var question = questionPairs[questionIndex].question;
+  var answer = questionPairs[questionIndex].answer;
+
+  var table = document.getElementById('questionTable');
+  var row = table.insertRow(-1);
+
+  var questionCell = row.insertCell(0);
+  questionCell.textContent = question;
+
+  var answerCell = row.insertCell(1);
+  answerCell.textContent = answer;
+
+  var resultCell = row.insertCell(2);
+  resultCell.textContent = result;
+}
+
+// Function to update the level display based on the score percentage
+function updateLevel() {
+  var scorePercentage = (score / totalQuestionsAnswered) * 100;
+
+  if (scorePercentage < 65) {
+    document.getElementById('levelDisplay').textContent = 'Level: Novice';
+  } else if (scorePercentage >= 65 && scorePercentage <= 75) {
+    document.getElementById('levelDisplay').textContent = 'Level: Student';
+  } else if (scorePercentage > 75 && scorePercentage <= 85) {
+    document.getElementById('levelDisplay').textContent = 'Level: Teacher';
+  } else {
+    document.getElementById('levelDisplay').textContent = 'Level: Master';
+  }
+}
+
+// Function to restart the quiz
+function restartQuiz() {
+  document.getElementById('scoreSection').style.display = 'none';
   document.getElementById('questionSection').style.display = 'block';
+  document.getElementById('restartButton').style.display = 'none';
 
-  clearInputValues([
-    document.getElementById('questionInput'),
-    document.getElementById('answerInput'),
-    document.getElementById('userAnswerInput')
-  ]);
+  // Reset variables
+  currentQuestionIndex = 0;
+  score = 0;
+  totalQuestionsAnswered = 0;
 
-  storedQuestion = '';
-  storedAnswer = '';
+  // Reset input fields
+  var questionInputs = document.getElementsByClassName('question-input');
+  var answerInputs = document.getElementsByClassName('answer-input');
 
-  updateScore();
-}
-
-function updateScore() {
-  document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
-}
-
-function showAlert(message, type) {
-  const alert = document.createElement('div');
-  alert.textContent = message;
-  alert.className = `alert alert-${type}`;
-  document.getElementById('messageSection').appendChild(alert);
-  setTimeout(() => {
-    document.getElementById('messageSection').removeChild(alert);
-    restart();
-  }, 2000);
-}
-
-function clearInputValues(inputs) {
-  for (let i = 0; i < inputs.length; i++) {
-    inputs[i].value = '';
-  }
-}
-
-function showLevel(level) {
-  const levelDisplay = document.getElementById('levelDisplay');
-  levelDisplay.textContent = `Level: ${level}`;
-
-  if (level === 'Student') {
-    levelDisplay.classList.add('level-student');
-    levelDisplay.classList.remove('level-advanced-student');
-  } else if (level === 'Advanced Student') {
-    levelDisplay.classList.remove('level-student');
-    levelDisplay.classList.add('level-advanced-student');
+  for (var i = 0; i < questionInputs.length; i++) {
+    questionInputs[i].value = '';
+    answerInputs[i].value = '';
   }
 
-  levelDisplay.style.display = 'block';
-  levelDisplayed = true;
+  // Reset question table
+  var table = document.getElementById('questionTable');
+  while (table.rows.length > 1) {
+    table.deleteRow(-1);
+  }
+
+  currentState = 'storeQuestions';
 }
 
-function hideLevel() {
-  const levelDisplay = document.getElementById('levelDisplay');
-  levelDisplay.style.display = 'none';
-  levelDisplayed = false;
-}
+// Event listener for Enter key press
+document.addEventListener('keydown', function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    if (currentState === 'storeQuestions') {
+      storeQuestions();
+    } else if (currentState === 'giveAnswer') {
+      giveAnswer();
+    }
+  }
+});
