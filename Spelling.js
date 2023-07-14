@@ -123,6 +123,7 @@ function restartQuiz() {
   document.getElementById('scoreSection').style.display = 'none';
   document.getElementById('questionSection').style.display = 'block';
   document.getElementById('restartButton').style.display = 'none';
+  document.getElementById('levelDisplay').textContent = 'Level:';
 
   // Reset variables
   currentQuestionIndex = 0;
