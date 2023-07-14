@@ -57,7 +57,6 @@ function giveAnswer() {
     document.getElementById('scoreDisplay').textContent = 'You got it right!';
     addRowToQuestionTable(currentQuestionIndex, 'Correct');
   } else {
-    score = 0;
     document.getElementById('scoreDisplay').textContent = 'You got it wrong. Try again!';
     addRowToQuestionTable(currentQuestionIndex, 'Incorrect');
   }
@@ -127,7 +126,6 @@ function restartQuiz() {
 
   // Reset variables
   currentQuestionIndex = 0;
-  score = 0;
   totalQuestionsAnswered = 0;
 
   // Reset input fields
